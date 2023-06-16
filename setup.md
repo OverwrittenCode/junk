@@ -199,3 +199,42 @@ dotenv.config();
   client.login(process.env.DISCORD_BOT_TOKEN);
 })();
 ```
+
+# tsconfig.json
+```json
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "commonjs",
+    "outDir": "./dist",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules"]
+}
+```
+
+# package.json
+```json
+"scripts": {
+  "start": "ts-node src/bot.ts",
+  "build": "tsc",
+  "dev": "tsc-watch --onSuccess \"node ./dist/bot.js\""
+}
+```
+# .env
+```env
+DISCORD_BOT_TOKEN=your_bot_token
+```
+
+# shell
+```bash
+npm init -y
+npm install discord.js
+npm install typescript
+npm install --save-dev ts-node @types/node
+npm install dotenv
+```
