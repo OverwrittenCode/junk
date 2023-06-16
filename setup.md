@@ -311,6 +311,3 @@ dotenv.config();
 As you can see above, **GPT-4** did make some errors (3), however it did correct it's own errors too after submitting it's own code.
 
 The conversation is hyperlinked **[here](https://chat.forefront.ai/share/faarw5gfcn6d8f7l)**, on a website that allows you to use GPT-4, or you can click the following link: **https://chat.forefront.ai/share/faarw5gfcn6d8f7l**,
-
-<a href="https://ibb.co/Yp871Kh"><img src="https://i.ibb.co/yW5nZMq/image.png" alt="A conversation of the code error (1/2)" border="0"></a>
-<a href="https://ibb.co/nb7HjCQ"><img src="https://i.ibb.co/BtyXBNT/image-1.png" alt="A conversation of the code error (2/2)" border="0"></a>
