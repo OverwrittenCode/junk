@@ -56,6 +56,7 @@ export const command = {
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { CommandInteraction } from "discord.js";
 import { MongoClient } from "mongodb";
+import { checkPermission } from "../../utils/permissions";
 
 export const data = new SlashCommandBuilder()
   .setName("ping")
@@ -132,19 +133,27 @@ export const checkPermission = async (
 # src/utils/registry.ts
 
 ```ts
-import { Client } from "discord.js";
-import { readdirSync } from "fs";
+import { Client, Collection } from "discord.js";
+import { readdirSync, statSync } from "fs";
 import { join } from "path";
 
+declare module "discord.js" {
+  interface Client {
+    commands: Collection<string, any>;
+  }
+}
+
 export async function registerCommands(client: Client, dir: string) {
+  client.commands = new Collection(); // Initialize the commands property
   const files = readdirSync(join(__dirname, dir));
   for (const file of files) {
-    const stat = readdirSync(join(__dirname, dir, file)).isDirectory();
-    if (stat) {
+    const filePath = join(__dirname, dir, file);
+    const stat = statSync(filePath); // Use statSync instead of readdirSync
+    if (stat.isDirectory()) {
       registerCommands(client, join(dir, file));
     } else {
       if (file.endsWith(".ts")) {
-        const { command } = await import(join(__dirname, dir, file));
+        const { command } = await import(filePath);
         client.commands.set(command.data.name, command);
       }
     }
@@ -154,12 +163,13 @@ export async function registerCommands(client: Client, dir: string) {
 export async function registerEvents(client: Client, dir: string) {
   const files = readdirSync(join(__dirname, dir));
   for (const file of files) {
-    const stat = readdirSync(join(__dirname, dir, file)).isDirectory();
-    if (stat) {
+    const filePath = join(__dirname, dir, file);
+    const stat = statSync(filePath); // Use statSync instead of readdirSync
+    if (stat.isDirectory()) {
       registerEvents(client, join(dir, file));
     } else {
       if (file.endsWith(".ts")) {
-        const { event } = await import(join(__dirname, dir, file));
+        const { event } = await import(filePath);
         if (event.once) {
           client.once(event.name, (...args) => event.execute(...args, client));
         } else {
@@ -201,6 +211,7 @@ dotenv.config();
 ```
 
 # tsconfig.json
+
 ```json
 {
   "compilerOptions": {
@@ -218,6 +229,7 @@ dotenv.config();
 ```
 
 # package.json
+
 ```json
 "scripts": {
   "start": "ts-node src/bot.ts",
@@ -225,12 +237,15 @@ dotenv.config();
   "dev": "tsc-watch --onSuccess \"node ./dist/bot.js\""
 }
 ```
+
 # .env
+
 ```env
 DISCORD_BOT_TOKEN=your_bot_token
 ```
 
 # shell
+
 ```powershell
 npm init -y
 npm install discord.js typescript --save-dev ts-node @types/node dotenv fs path @types/mongodb mongodb @discordjs/builders
