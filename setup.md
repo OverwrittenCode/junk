@@ -237,4 +237,7 @@ npm install discord.js
 npm install typescript
 npm install --save-dev ts-node @types/node
 npm install dotenv
+npm install mongodb
+npm install @types/mongodb
+npm install discord.js-slash-commands
 ```
