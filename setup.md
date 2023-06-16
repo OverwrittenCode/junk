@@ -76,7 +76,7 @@ Create a new file in your project folder called `tsconfig.json` and add the foll
 Inside the <span style= "color: #C3A774">package.json</span> file, add/replace the default section of
 
 ```json
-"scripts": { ... }
+"scripts": {  }
 ```
 
 with the following:
