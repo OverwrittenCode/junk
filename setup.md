@@ -241,9 +241,9 @@ export const event = {
 
 ### Create an example command file:
 
-Inside the commands/moderation folder, create a new file called `ping.ts:`
+Inside the commands/util folder, create a new file called `ping.ts:`
 
-#### src/commands/moderation/ping.ts
+#### src/commands/util/ping.ts
 
 ```ts
 import { SlashCommandBuilder } from "@discordjs/builders";
@@ -259,7 +259,7 @@ export const execute = async (
   interaction: CommandInteraction,
   mongoClient: MongoClient
 ) => {
-  const hasPermission = await checkPermission(interaction, mongoClient, 2);
+  const hasPermission = await checkPermission(interaction, mongoClient, 1);
 
   if (hasPermission) {
     await interaction.reply("Pong!");
