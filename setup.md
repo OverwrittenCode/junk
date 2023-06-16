@@ -306,6 +306,8 @@ dotenv.config();
 })();
 ```
 
+Now, run the command `npm run start` in your terminal and the bot will start.
+
 # Author's Note: GPT-4 Corrections
 
 As you can see above, **GPT-4** did make some errors (3), however it did correct it's own errors too after submitting it's own code.
