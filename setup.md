@@ -233,11 +233,5 @@ DISCORD_BOT_TOKEN=your_bot_token
 # shell
 ```bash
 npm init -y
-npm install discord.js
-npm install typescript
-npm install --save-dev ts-node @types/node
-npm install dotenv
-npm install mongodb
-npm install @types/mongodb
-npm install discord.js-slash-commands
+npm install discord.js typescript --save-dev ts-node @types/node dotenv fs path @types/mongodb mongodb @discordjs/builders
 ```
